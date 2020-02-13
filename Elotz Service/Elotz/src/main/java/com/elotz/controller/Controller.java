@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.elotz.bean.DailyUpdatePost;
+import com.elotz.exception.GenericException;
+import com.elotz.exception.TopicNotFound;
 
 @RestController
 @RequestMapping("/Elotz-home")
@@ -39,15 +41,15 @@ public class Controller {
 		return dailyTopics;
 	}
 	@GetMapping("/dailyUpdate/task/{topic}")
-	public List getDailyUpdateTasks(@PathVariable String topic)
+	public List getDailyUpdateTasks(@PathVariable String topic) throws TopicNotFound
 	{
 		if(dailyTasks.containsKey(topic))
 		return dailyTasks.get(topic);
 		else
-			return null;
+			throw new TopicNotFound("Failure","Given Topic is not found");
 	}
 	@PostMapping("dailyUpdate/post")
-	public String postDailyUpdate(@RequestBody DailyUpdatePost dailyUpdatePost)
+	public String postDailyUpdate(@RequestBody DailyUpdatePost dailyUpdatePost) throws GenericException
 	{
 		try {
 			dailyTopics.add(dailyUpdatePost.getTask());
@@ -68,7 +70,7 @@ public class Controller {
 		catch(Exception e)
 		{
 			System.out.println(e);
-			return "failure";
+			throw new GenericException("Failure",e.toString());
 		}
 	}
 }
