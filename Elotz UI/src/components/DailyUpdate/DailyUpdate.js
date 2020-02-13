@@ -11,6 +11,8 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Checkbox from '@material-ui/core/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import {useEffect,useState} from "react"
 const useStyles = makeStyles(theme => ({
     root: {
         display:'flex',
@@ -59,12 +61,14 @@ export default function DailyUpdate() {
     const [task, setTask] = React.useState('');
     const [checkedTopic, setCheckedTopic] = React.useState(false);
     const [checkedTask, setCheckedTask] = React.useState(false);
+    const [check,setCheck]=useState(false); 
     // const handleChange = event => {
     //     setAge(event.target.value);
     //   };
   const classes = useStyles();
  
   return (
+    check? <div style={{position:"fixed",top:"50%",right:"50%"}}><CircularProgress color="secondary"/></div>:
       <div className={classes.root}>
     <Card className={classes.card}>
       <CardContent className={classes.cardContent}>
@@ -76,7 +80,15 @@ export default function DailyUpdate() {
           labelId="topic-select-label"
           id="topic-select"
           value={topic}
-          onChange={(event)=>{setTopic(event.target.value)}}
+          onChange={(event)=>{setTopic(event.target.value);
+            setCheck(true);
+            new Promise(resolve => {
+              setTimeout(() => {
+                resolve();
+              setCheck(false);
+              }, 1000);
+            })
+          }}
         >
           <MenuItem value={'React'}>React</MenuItem>
           <MenuItem value={'Java'}>Java</MenuItem>
@@ -88,7 +100,8 @@ export default function DailyUpdate() {
         control={
             <Checkbox
             checked={checkedTopic}
-            onChange={()=>{setCheckedTopic(!checkedTopic)}}
+            onChange={()=>{setCheckedTopic(!checkedTopic);
+            }}
             value="primary"
             inputProps={{ 'aria-label': 'primary checkbox' }}
           />
@@ -103,7 +116,15 @@ export default function DailyUpdate() {
           labelId="task-select-label"
           id="task-select"
           value={task}
-          onChange={(event)=>{setTask(event.target.value)}}
+          onChange={(event)=>{setTask(event.target.value);
+            setCheck(true);
+            new Promise(resolve => {
+              setTimeout(() => {
+                resolve();
+              setCheck(false);
+              }, 1000);
+            })
+          }}
         >
           <MenuItem value={'Ten'}>Ten</MenuItem>
           <MenuItem value={'Twenty'}>Twenty</MenuItem>
@@ -115,7 +136,8 @@ export default function DailyUpdate() {
         control={
             <Checkbox
             checked={checkedTask}
-            onChange={()=>{setCheckedTask(!checkedTask)}}
+            onChange={()=>{setCheckedTask(!checkedTask);
+            }}
             value="primary"
             inputProps={{ 'aria-label': 'primary checkbox' }}
           />
