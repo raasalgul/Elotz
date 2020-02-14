@@ -12,7 +12,7 @@ import FormControl from '@material-ui/core/FormControl';
 import Checkbox from '@material-ui/core/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import {useEffect,useState} from "react"
+import {useState} from "react"
 const useStyles = makeStyles(theme => ({
     root: {
         display:'flex',
@@ -31,7 +31,11 @@ const useStyles = makeStyles(theme => ({
       }
     },
     card: {
-        flexBasis:'1000px'
+        flexBasis:'1000px',
+      },
+      card_blur:{
+        flexBasis:'1000px',
+        backgroundColor: 'rgba(0,0,0,0.3)'
       },
       formControl: {
         margin: theme.spacing(1),
@@ -62,15 +66,12 @@ export default function DailyUpdate() {
     const [checkedTopic, setCheckedTopic] = React.useState(false);
     const [checkedTask, setCheckedTask] = React.useState(false);
     const [check,setCheck]=useState(false); 
-    // const handleChange = event => {
-    //     setAge(event.target.value);
-    //   };
   const classes = useStyles();
  
   return (
-    check? <div style={{position:"fixed",top:"50%",right:"50%"}}><CircularProgress color="secondary"/></div>:
       <div className={classes.root}>
-    <Card className={classes.card}>
+         {check? <div style={{position:"absolute",top:"50%",right:"50%"}}><CircularProgress color="secondary"/></div>:null}
+    <Card className={check?classes.card_blur:classes.card}>
       <CardContent className={classes.cardContent}>
           {checkedTopic?
         <TextField className={classes.topic} id="standard-basic" label="Topic" />:
@@ -147,7 +148,7 @@ export default function DailyUpdate() {
       <TextField className={classes.time} id="standard-basic" label="Time in hours" />
       </CardContent>
       <CardActions>
-        <Button size="small" variant="contained" color="primary">Submit</Button>
+        <Button disabled={check} size="small" variant="contained" color="primary">Submit</Button>
       </CardActions>
     </Card>
     </div>

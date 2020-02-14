@@ -3,7 +3,7 @@ import Daily from "../components/DailyUpdate/DailyUpdate"
 import Montly from "../components/MonthlyUpdate/MonthlyUpdate"
 import Weekly from "../components/WeeklyUpdate/WeeklyUpdate"
 import Yearly from "../components/YearlyUpdate/YearlyUpate";
-import DailyView from "../components/DailyUpdate/DailyView";
+// import DailyView from "../components/DailyUpdate/DailyView";
 export let dashboardRoutes = [
     {
       path: "/dashboard",
