@@ -12,7 +12,9 @@ import FormControl from '@material-ui/core/FormControl';
 import Checkbox from '@material-ui/core/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import {useState} from "react"
+import {useState,useEffect} from "react"
+import axios from "axios";
+const serviceURLHost="localhost:8089/";
 const useStyles = makeStyles(theme => ({
     root: {
         display:'flex',
@@ -66,6 +68,15 @@ export default function DailyUpdate() {
     const [checkedTopic, setCheckedTopic] = React.useState(false);
     const [checkedTask, setCheckedTask] = React.useState(false);
     const [check,setCheck]=useState(false); 
+    const [getTopic,setGetTopic]=React.useState([]);
+    const [getTask,setGetTak]=React.useState({});
+    useEffect(()=>{
+      axios.get(`${serviceURLHost}/Elotz-home/dailyUpdate/topic`).then(res => {
+        const topics = res.data;
+        console.log(topics);
+        setGetTopic(topics);
+      });
+    });
   const classes = useStyles();
  
   return (
@@ -91,9 +102,21 @@ export default function DailyUpdate() {
             })
           }}
         >
-          <MenuItem value={'React'}>React</MenuItem>
+{getTopic.map(
+                      (stateCodeOption, index) => (
+                        <MenuItem key={index} value={stateCodeOption}>
+                          {stateCodeOption}
+                        </MenuItem>
+                      )
+                    )}
+          {/* {
+          getTopic.map((topic,index)=>{
+          <MenuItem value={topic}>{topic}</MenuItem>
+          })
+          } */}
+          {/* <MenuItem value={'React'}>React</MenuItem>
           <MenuItem value={'Java'}>Java</MenuItem>
-          <MenuItem value={'Spring'}>Spring</MenuItem>
+          <MenuItem value={'Spring'}>Spring</MenuItem> */}
         </Select>
         </FormControl>}
         <FormControlLabel

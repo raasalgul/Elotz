@@ -3,7 +3,7 @@ package com.elotz.bean;
 public class DailyUpdatePost {
 public String topic;
 public String task;
-public int time;
+public String time;
 /**
  * @return the topic
  */
@@ -31,13 +31,13 @@ public void setTask(String task) {
 /**
  * @return the time
  */
-public int getTime() {
+public String getTime() {
 	return time;
 }
 /**
  * @param time the time to set
  */
-public void setTime(int time) {
+public void setTime(String time) {
 	this.time = time;
 }
 

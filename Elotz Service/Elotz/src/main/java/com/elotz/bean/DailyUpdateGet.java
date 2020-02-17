@@ -1,33 +1,57 @@
 package com.elotz.bean;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class DailyUpdateGet {
-public ArrayList<String> topics;
-public ArrayList<String> time;
-/**
- * @return the topics
- */
-public ArrayList<String> getTopics() {
-	return topics;
+public String topic;
+public List<String> tasks;
+public List<String> time;
+public DailyUpdateGet()
+{
+	
+}
+public DailyUpdateGet(String topic, List<String> tasks, List<String> time) {
+	super();
+	this.topic = topic;
+	this.tasks = tasks;
+	this.time = time;
 }
 /**
- * @param topics the topics to set
+ * @return the topic
  */
-public void setTopics(ArrayList<String> topics) {
-	this.topics = topics;
+public String getTopic() {
+	return topic;
+}
+/**
+ * @param topic the topic to set
+ */
+public void setTopic(String topic) {
+	this.topic = topic;
+}
+/**
+ * @return the tasks
+ */
+public List<String> getTasks() {
+	return tasks;
+}
+/**
+ * @param react the tasks to set
+ */
+public void setTasks(List<String> react) {
+	this.tasks = react;
 }
 /**
  * @return the time
  */
-public ArrayList<String> getTime() {
+public List<String> getTime() {
 	return time;
 }
 /**
  * @param time the time to set
  */
-public void setTime(ArrayList<String> time) {
+public void setTime(List<String> time) {
 	this.time = time;
 }
+
 
 }
