@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.context.annotation.Bean;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,6 +19,7 @@ import com.elotz.bean.DailyUpdatePost;
 import com.elotz.exception.GenericException;
 import com.elotz.exception.TopicNotFound;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/Elotz-home")
 public class Controller {
@@ -107,7 +109,7 @@ public class Controller {
 				dailyTaskList.add(dailyUpdate);
 				System.out.println("Inside non-existing topic");
 			}
-			return "success";
+			return "{\"Status\":\"success\"}";
 		}
 		catch(Exception e)
 		{

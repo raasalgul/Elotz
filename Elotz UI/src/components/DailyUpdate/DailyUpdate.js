@@ -13,8 +13,8 @@ import Checkbox from '@material-ui/core/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import {useState,useEffect} from "react"
-import axios from "axios";
-const serviceURLHost="localhost:8089/";
+// import axios from "axios";
+const serviceURLHost="http://localhost:8089";
 const useStyles = makeStyles(theme => ({
     root: {
         display:'flex',
@@ -55,7 +55,7 @@ const useStyles = makeStyles(theme => ({
         flexWrap:'wrap',
         flexShrink:1,
       },
-      task:{
+      task_view:{
         flexBasis:'700px'
       },
       time:{
@@ -65,27 +65,71 @@ const useStyles = makeStyles(theme => ({
 export default function DailyUpdate() {
     const [topic, setTopic] = React.useState('');
     const [task, setTask] = React.useState('');
+    const [time,setTime]=React.useState('');
     const [checkedTopic, setCheckedTopic] = React.useState(false);
     const [checkedTask, setCheckedTask] = React.useState(false);
     const [check,setCheck]=useState(false); 
     const [getTopic,setGetTopic]=React.useState([]);
-    const [getTask,setGetTak]=React.useState({});
+    const [getTask,setGetTak]=React.useState({ "topic": "",
+    "tasks": [
+       
+    ],
+    "time": [
+       
+    ]});
     useEffect(()=>{
-      axios.get(`${serviceURLHost}/Elotz-home/dailyUpdate/topic`).then(res => {
-        const topics = res.data;
-        console.log(topics);
-        setGetTopic(topics);
+      // axios.get(`${serviceURLHost}/Elotz-home/dailyUpdate/topic`).then(res => {
+        // const topics = res.data;
+        // console.log(topics);
+        // setGetTopic(topics);
+      // });
+      fetch(`${serviceURLHost}/Elotz-home/dailyUpdate/topic`).then((response) => {
+        return response.json();
+      })
+      .then((myJson) => {
+        console.log(myJson);
+        setGetTopic(myJson);
       });
-    });
+      if(topic!=='' && !checkedTopic)
+      fetch(`${serviceURLHost}/Elotz-home/dailyUpdate/task/${topic}`).then((response) => {
+        return response.json();
+      })
+      .then((myJson) => {
+        console.log(myJson);
+        setGetTak(myJson);
+      });
+    },[topic,checkedTopic]);
   const classes = useStyles();
- 
+  
+  async function handleSubmit(){
+    let data={};
+    data.topic=topic;
+    data.task=task;
+    data.time=time;
+    console.log(data);
+    const response = await fetch(`${serviceURLHost}/Elotz-home/dailyUpdate/post`, {
+      method: 'POST', // *GET, POST, PUT, DELETE, etc.
+      mode: 'cors', // no-cors, *cors, same-origin
+      cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+      credentials: 'same-origin', // include, *same-origin, omit
+      headers: {
+        'Content-Type': 'application/json'
+        // 'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      redirect: 'follow', // manual, *follow, error
+      referrerPolicy: 'no-referrer', // no-referrer, *client
+      body: JSON.stringify(data) // body data type must match "Content-Type" header
+    });
+    return await response.json(); // parses JSON response into native JavaScript objects
+  
+  }
   return (
       <div className={classes.root}>
          {check? <div style={{position:"absolute",top:"50%",right:"50%"}}><CircularProgress color="secondary"/></div>:null}
     <Card className={check?classes.card_blur:classes.card}>
       <CardContent className={classes.cardContent}>
           {checkedTopic?
-        <TextField className={classes.topic} id="standard-basic" label="Topic" />:
+        <TextField  value={topic} className={classes.topic} id="standard-basic" label="Topic"  onChange={(event)=>{setTopic(event.target.value)}}/>:
         <FormControl className={classes.formControl}>
       <InputLabel id="topic-select-label">Topic</InputLabel>
         <Select
@@ -133,7 +177,7 @@ export default function DailyUpdate() {
         label="New Topic"
       />
         {checkedTask?
-         <TextField className={classes.task} id="standard-basic" label="Task" />:
+         <TextField value={task} className={classes.task_view} id="standard-basic" label="Task" onChange={(event)=>{setTask(event.target.value)}}/>:
         <FormControl className={classes.formControl}>
       <InputLabel id="task-select-label">Task</InputLabel>
         <Select
@@ -150,9 +194,16 @@ export default function DailyUpdate() {
             })
           }}
         >
-          <MenuItem value={'Ten'}>Ten</MenuItem>
+          {getTask.tasks.map(
+                      (stateCodeOption, index) => (
+                        <MenuItem key={index} value={stateCodeOption}>
+                          {stateCodeOption}
+                        </MenuItem>
+                      )
+                    )}
+          {/* <MenuItem value={'Ten'}>Ten</MenuItem>
           <MenuItem value={'Twenty'}>Twenty</MenuItem>
-          <MenuItem value={'Thirty'}>Thirty</MenuItem>
+          <MenuItem value={'Thirty'}>Thirty</MenuItem> */}
         </Select>
         </FormControl>}
         <FormControlLabel
@@ -168,10 +219,10 @@ export default function DailyUpdate() {
         }
         label="New Task"
       />
-      <TextField className={classes.time} id="standard-basic" label="Time in hours" />
+      <TextField className={classes.time} value={time} id="standard-basic" label="Time in hours" onChange={(event)=>{setTime(event.target.value)}}/>
       </CardContent>
       <CardActions>
-        <Button disabled={check} size="small" variant="contained" color="primary">Submit</Button>
+        <Button disabled={check} size="small" variant="contained" color="primary" onClick={handleSubmit}>Submit</Button>
       </CardActions>
     </Card>
     </div>
