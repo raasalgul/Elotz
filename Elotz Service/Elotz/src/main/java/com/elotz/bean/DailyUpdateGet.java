@@ -1,20 +1,18 @@
 package com.elotz.bean;
 
+
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class DailyUpdateGet {
 public String topic;
 public List<String> tasks;
 public List<String> time;
+public List<Boolean> active;
+public List<LocalDateTime> addedLogon;
 public DailyUpdateGet()
 {
 	
-}
-public DailyUpdateGet(String topic, List<String> tasks, List<String> time) {
-	super();
-	this.topic = topic;
-	this.tasks = tasks;
-	this.time = time;
 }
 /**
  * @return the topic
@@ -35,10 +33,10 @@ public List<String> getTasks() {
 	return tasks;
 }
 /**
- * @param react the tasks to set
+ * @param tasks the tasks to set
  */
-public void setTasks(List<String> react) {
-	this.tasks = react;
+public void setTasks(List<String> tasks) {
+	this.tasks = tasks;
 }
 /**
  * @return the time
@@ -53,5 +51,29 @@ public void setTime(List<String> time) {
 	this.time = time;
 }
 
+/**
+ * @return the active
+ */
+public List<Boolean> getActive() {
+	return active;
+}
+/**
+ * @param active the active to set
+ */
+public void setActive(List<Boolean> active) {
+	this.active = active;
+}
+/**
+ * @return the addedLogon
+ */
+public List<LocalDateTime> getAddedLogon() {
+	return addedLogon;
+}
+/**
+ * @param addedLogon the addedLogon to set
+ */
+public void setAddedLogon(List<LocalDateTime> addedLogon) {
+	this.addedLogon = addedLogon;
+}
 
 }

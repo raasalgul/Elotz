@@ -68,15 +68,20 @@ export default function DailyUpdate() {
     const [time,setTime]=React.useState('');
     const [checkedTopic, setCheckedTopic] = React.useState(false);
     const [checkedTask, setCheckedTask] = React.useState(false);
+    const [checkedActive,setCheckedActive]=React.useState(false);
     const [check,setCheck]=useState(false); 
     const [getTopic,setGetTopic]=React.useState([]);
-    const [getTask,setGetTak]=React.useState({ "topic": "",
+    const [getTask,setGetTask]=React.useState({ "topic": "",
     "tasks": [
        
     ],
     "time": [
        
-    ]});
+    ],
+    "active":[
+
+    ]
+  });
     useEffect(()=>{
       // axios.get(`${serviceURLHost}/Elotz-home/dailyUpdate/topic`).then(res => {
         // const topics = res.data;
@@ -90,13 +95,15 @@ export default function DailyUpdate() {
         console.log(myJson);
         setGetTopic(myJson);
       });
+      // if(topic!=='' && !checkedTopic)
       if(topic!=='' && !checkedTopic)
       fetch(`${serviceURLHost}/Elotz-home/dailyUpdate/task/${topic}`).then((response) => {
         return response.json();
       })
       .then((myJson) => {
         console.log(myJson);
-        setGetTak(myJson);
+        setGetTask(myJson);
+       
       });
     },[topic,checkedTopic]);
   const classes = useStyles();
@@ -106,6 +113,7 @@ export default function DailyUpdate() {
     data.topic=topic;
     data.task=task;
     data.time=time;
+    data.active=checkedActive;
     console.log(data);
     const response = await fetch(`${serviceURLHost}/Elotz-home/dailyUpdate/post`, {
       method: 'POST', // *GET, POST, PUT, DELETE, etc.
@@ -185,11 +193,21 @@ export default function DailyUpdate() {
           id="task-select"
           value={task}
           onChange={(event)=>{setTask(event.target.value);
+          //   const localTask=getTask.tasks.indexOf(event.target.value);
+          // //  const checked=getTask.active.find((value,index)=>{ if(index===getTask.tasks.indexOf(event.target.value))return value; });
+          //   console.log(getTask.active);
+          //   setCheckedActive(false);
             setCheck(true);
             new Promise(resolve => {
               setTimeout(() => {
                 resolve();
+               
               setCheck(false);
+              const localTask=getTask.tasks.indexOf(event.target.value);
+              //  const checked=getTask.active.find((value,index)=>{ if(index===getTask.tasks.indexOf(event.target.value))return value; });
+                console.log(getTask.tasks[localTask] +` `+getTask.active[localTask]);
+                setCheckedActive(getTask.active[localTask]);
+                setTime(getTask.time[localTask]);
               }, 1000);
             })
           }}
@@ -220,6 +238,22 @@ export default function DailyUpdate() {
         label="New Task"
       />
       <TextField className={classes.time} value={time} id="standard-basic" label="Time in hours" onChange={(event)=>{setTime(event.target.value)}}/>
+      <FormControlLabel
+        className={classes.checkboxs}
+        control={
+            <Checkbox
+            disabled={time===''}
+            checked={checkedActive}
+            onChange={()=>{setCheckedActive(!checkedActive) 
+              console.log(task);
+              console.log(getTask.tasks.indexOf(task));
+            }}
+            value="primary"
+            inputProps={{ 'aria-label': 'primary checkbox' }}
+          />
+        }
+        label="Active"
+      />
       </CardContent>
       <CardActions>
         <Button disabled={check} size="small" variant="contained" color="primary" onClick={handleSubmit}>Submit</Button>

@@ -4,6 +4,7 @@ public class DailyUpdatePost {
 public String topic;
 public String task;
 public String time;
+public Boolean active;
 /**
  * @return the topic
  */
@@ -39,6 +40,18 @@ public String getTime() {
  */
 public void setTime(String time) {
 	this.time = time;
+}
+/**
+ * @return the active
+ */
+public Boolean getActive() {
+	return active;
+}
+/**
+ * @param active the active to set
+ */
+public void setActive(Boolean active) {
+	this.active = active;
 }
 
 }
