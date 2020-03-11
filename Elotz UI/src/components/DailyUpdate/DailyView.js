@@ -8,9 +8,12 @@ import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 const useStyles = makeStyles({
   root: {
-    minWidth: 275,
     position: 'relative',
-    top:'300px'
+    top:'250px'
+  },
+  root_cardContent:{
+    maxHeight: 275,
+    overflowY:'scroll'
   },
   card_root: {
     minWidth: 275,
@@ -31,68 +34,34 @@ const useStyles = makeStyles({
 
 export default function DailyView() {
   const classes = useStyles();
-  const bull = <span className={classes.bullet}>•</span>;
-
+const response=['java','react','mongo db','Jax-RS','hooks','react','mongo db','Jax-RS','hooks','react','mongo db','Jax-RS','hooks','react','mongo db','Jax-RS','hooks'];
   return (
     <Card className={classes.root}>
-      <CardContent>
+      <CardContent className={classes.root_cardContent}>
           <Grid container spacing={2}>
-      <Grid item xs={3}>
-      <Card className={classes.card_root}>
-      <CardContent>
-        <Typography className={classes.title} color="textSecondary" gutterBottom>
-          Word of the Day
-        </Typography>
-        <Typography variant="h5" component="h2">
-          be{bull}nev{bull}o{bull}lent
-        </Typography>
-        <Typography className={classes.pos} color="textSecondary">
-          adjective
-        </Typography>
-        <Typography variant="body2" component="p">
-          well meaning and kindly.
-          <br />
-          {'"a benevolent smile"'}
-        </Typography>
-      </CardContent>
-      <CardActions>
-        <Button size="small">Learn More</Button>
-      </CardActions>
-    </Card>
-      </Grid>
-            <Grid item xs={3}>
-      <Card className={classes.card_root}>
-      <CardContent>
-        <Typography className={classes.title} color="textSecondary" gutterBottom>
-          Word of the Day
-        </Typography>
-        <Typography variant="h5" component="h2">
-          be{bull}nev{bull}o{bull}lent
-        </Typography>
-        <Typography className={classes.pos} color="textSecondary">
-          adjective
-        </Typography>
-        <Typography variant="body2" component="p">
-          well meaning and kindly.
-          <br />
-          {'"a benevolent smile"'}
-        </Typography>
-      </CardContent>
-      <CardActions>
-        <Button size="small">Learn More</Button>
-      </CardActions>
-    </Card>
-      </Grid>
-      <Grid item xs={3}>
-      <Card className={classes.card_root}>
-      <CardContent>
-      
-      </CardContent>
-      <CardActions>
-        <Button size="small">Learn More</Button>
-      </CardActions>
-    </Card>
-      </Grid>
+          {response.map(value=>{
+              return(
+               <Grid item xs={3}>
+               <Card className={classes.card_root}>
+               <CardContent>
+                 <Typography className={classes.title} color="textSecondary" gutterBottom>
+                 Topic {value}
+                 </Typography>
+                 <Typography variant="h5" component="h2">
+                 World of {value}
+                 </Typography>
+                 <Typography className={classes.pos} color="textSecondary">
+                   Task
+                 </Typography>
+                 <Typography variant="body2" component="p">
+                   Description
+                   <br />
+                   {'"author"'}
+                 </Typography>
+               </CardContent>
+             </Card>
+               </Grid>);
+          })}
       </Grid>
       </CardContent>
       <CardActions>
