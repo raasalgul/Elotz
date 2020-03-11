@@ -1,47 +1,103 @@
-// import React from 'react';
-// import { makeStyles } from '@material-ui/core/styles';
-// import TreeView from '@material-ui/lab/TreeView';
-// import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-// import ChevronRightIcon from '@material-ui/icons/ChevronRight';
-// import TreeItem from '@material-ui/lab/TreeItem';
+import React from 'react';
+import { makeStyles } from '@material-ui/core/styles';
+import Card from '@material-ui/core/Card';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
+import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
+import Grid from '@material-ui/core/Grid';
+const useStyles = makeStyles({
+  root: {
+    minWidth: 275,
+    position: 'relative',
+    top:'300px'
+  },
+  card_root: {
+    minWidth: 275,
+    maxWidth: 'fit-content'
+  },
+  bullet: {
+    display: 'inline-block',
+    margin: '0 2px',
+    transform: 'scale(0.8)',
+  },
+  title: {
+    fontSize: 14,
+  },
+  pos: {
+    marginBottom: 12,
+  },
+});
 
-// const useStyles = makeStyles({
-//   root: {
-//     height: 216,
-//     flexGrow: 1,
-//     maxWidth: 400,
-//   },
-// });
-// //npm install @material-ui/core
-// export default function DailyView() {
-//   const classes = useStyles();
-//   const [expanded, setExpanded] = React.useState([]);
+export default function DailyView() {
+  const classes = useStyles();
+  const bull = <span className={classes.bullet}>•</span>;
 
-//   const handleChange = (event, nodes) => {
-//     setExpanded(nodes);
-//   };
-
-//   return (
-//     <TreeView
-//       className={classes.root}
-//       defaultCollapseIcon={<ExpandMoreIcon />}
-//       defaultExpandIcon={<ChevronRightIcon />}
-//       expanded={expanded}
-//       onNodeToggle={handleChange}
-//     >
-//       <TreeItem nodeId="1" label="Applications">
-//         <TreeItem nodeId="2" label="Calendar" />
-//         <TreeItem nodeId="3" label="Chrome" />
-//         <TreeItem nodeId="4" label="Webstorm" />
-//       </TreeItem>
-//       <TreeItem nodeId="5" label="Documents">
-//         <TreeItem nodeId="6" label="Material-UI">
-//           <TreeItem nodeId="7" label="src">
-//             <TreeItem nodeId="8" label="index.js" />
-//             <TreeItem nodeId="9" label="tree-view.js" />
-//           </TreeItem>
-//         </TreeItem>
-//       </TreeItem>
-//     </TreeView>
-//   );
-// }
+  return (
+    <Card className={classes.root}>
+      <CardContent>
+          <Grid container spacing={2}>
+      <Grid item xs={3}>
+      <Card className={classes.card_root}>
+      <CardContent>
+        <Typography className={classes.title} color="textSecondary" gutterBottom>
+          Word of the Day
+        </Typography>
+        <Typography variant="h5" component="h2">
+          be{bull}nev{bull}o{bull}lent
+        </Typography>
+        <Typography className={classes.pos} color="textSecondary">
+          adjective
+        </Typography>
+        <Typography variant="body2" component="p">
+          well meaning and kindly.
+          <br />
+          {'"a benevolent smile"'}
+        </Typography>
+      </CardContent>
+      <CardActions>
+        <Button size="small">Learn More</Button>
+      </CardActions>
+    </Card>
+      </Grid>
+            <Grid item xs={3}>
+      <Card className={classes.card_root}>
+      <CardContent>
+        <Typography className={classes.title} color="textSecondary" gutterBottom>
+          Word of the Day
+        </Typography>
+        <Typography variant="h5" component="h2">
+          be{bull}nev{bull}o{bull}lent
+        </Typography>
+        <Typography className={classes.pos} color="textSecondary">
+          adjective
+        </Typography>
+        <Typography variant="body2" component="p">
+          well meaning and kindly.
+          <br />
+          {'"a benevolent smile"'}
+        </Typography>
+      </CardContent>
+      <CardActions>
+        <Button size="small">Learn More</Button>
+      </CardActions>
+    </Card>
+      </Grid>
+      <Grid item xs={3}>
+      <Card className={classes.card_root}>
+      <CardContent>
+      
+      </CardContent>
+      <CardActions>
+        <Button size="small">Learn More</Button>
+      </CardActions>
+    </Card>
+      </Grid>
+      </Grid>
+      </CardContent>
+      <CardActions>
+        <Button size="small">Learn More</Button>
+      </CardActions>
+    </Card>
+  );
+}
