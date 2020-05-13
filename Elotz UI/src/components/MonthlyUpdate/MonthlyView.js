@@ -60,7 +60,7 @@ let topicIndex=0;
 //   'react':['Hooks','Functional components','Class components'],
 //   'mongo db':['DML','DDL','transations']
 // }
-export default function DailyView() {
+export default function MonthlyView() {
     const serviceURLHost="http://localhost:8089";
   const classes = useStyles();
 // const response=['java','react','mongo db','Jax-RS','hooks','react','mongo db','Jax-RS','hooks','react','mongo db','Jax-RS','hooks','react','mongo db','Jax-RS','hooks'];
@@ -69,14 +69,20 @@ const [topic,setTopic]=useState('');
 const [tasks,setTasks]=useState([]);
 const [data,setData]=useState([]);
 useEffect(()=>{
-  fetch(`${serviceURLHost}/Elotz-home/dailyUpdate/view`).then((response) => {
+  fetch(`${serviceURLHost}/Elotz-home/monthlyUpdate/view`).then((response) => {
     return response.json();
   })
   .then((myJson) => {
-    console.log(JSON.stringify(myJson));
+    var jsonString=JSON.stringify(myJson);
+    console.log(jsonString);
+    // var initJson=`{no data: no data}`;
+    // jsonString.length<=2?
+    // setData(initJson):
+    // setData(myJson);
     setData(myJson);
+    // var name=jsonString.length<=2?"no data":Object.keys(myJson)[0];
     var name=Object.keys(myJson)[0];
-  console.log(myJson[name]);
+    console.log(name);
   setTopic(name.toUpperCase());
   setTasks(myJson[name]);
   });
@@ -104,9 +110,11 @@ return (
                        {topic}
                        </Typography>
             <Card>
+            {console.log(`tasks`+JSON.stringify(tasks))}
             <CardContent className={classes.root_cardContent}>
                 <Grid container spacing={2}>
                 {
+ 
                 tasks.map((value,index)=>{
                     return(
                      <Grid key={index} item xs={3}>

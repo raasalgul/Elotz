@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Chart from "react-google-charts";
 import {useTheme } from '@material-ui/core/styles';
 import MobileStepper from '@material-ui/core/MobileStepper';
@@ -7,6 +7,8 @@ import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
 import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
 const Daily = () => {
    const [activeStep, setActiveStep] = React.useState(0);
+   const serviceURLHost="http://localhost:8089";
+   const [data, setData] = React.useState([]);
   const maxSteps = 52;
   const theme = useTheme();
   const handleNext = () => {
@@ -16,38 +18,42 @@ const Daily = () => {
   const handleBack = () => {
     setActiveStep(prevActiveStep => prevActiveStep - 1);
   };
+  useEffect(()=>{
+    fetch(`${serviceURLHost}/Elotz-home/graph/weekday`).then((response) => {
+      return response.json();
+    })
+    .then((myJson) => {
+      console.log(JSON.stringify(myJson));
+      setData(myJson);
+     
+    });
+  },[]);
     return ( 
       <div>
     <Chart
         width={'600px'}
         height={'400px'}
-        chartType="LineChart"
+        chartType="LineChart"   
         loader={<div>Loading Chart</div>}
-        data={[
+        data={
           [
-            'Day',
-            'Google',
-            'Microsoft',
-            'Water',
-          ],
-          [1,10 ,20, 5],
-          [2,5,20, 5],
-          [3,5, 18, 5],
-          [4,3, 18,4],
-          [5,3, 13, 4],
-          [6, 2, 13, 0],
-          [7, 0,9, 0],
-        ]}
+            ["Java-Variables","Java-Oops","React-Hooks","Java-Collections","React-Components"],
+            [2,1,0,0,0],
+            [4,2,0,0,0],
+            [6,3,5,3,2]
+          ]}
+       // data={data}
         options={{
           title: "Week day status",
          // minValue:8,
          hAxis: {
           title: 'Days',
           minValue:0,
-          maxValue:7
+          //maxValue:7
         },
         vAxis: {
           title: 'Hours Spend',
+          minValue:0
         },
         }}
         rootProps={{ 'data-testid': '3' }}

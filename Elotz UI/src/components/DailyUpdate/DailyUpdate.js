@@ -60,7 +60,17 @@ const useStyles = makeStyles(theme => ({
       },
       time:{
         flexBasis:'700px'
+      },
+      submitButton:{
+        backgroundColor: "#41658A",
+        color:"#ffffff",
+        float:"left",
+        margin:10,  
+        '&:hover': {
+         backgroundColor:'#414073',
+         color: '#FFF'
       }
+    }
   }));
 export default function DailyUpdate() {
     const [topic, setTopic] = React.useState('');
@@ -256,7 +266,7 @@ export default function DailyUpdate() {
       />
       </CardContent>
       <CardActions>
-        <Button disabled={check} size="small" variant="contained" color="primary" onClick={handleSubmit}>Submit</Button>
+        <Button className={classes.submitButton} disabled={check} size="small" variant="contained" color="primary" onClick={handleSubmit}>Submit</Button>
       </CardActions>
     </Card>
     </div>

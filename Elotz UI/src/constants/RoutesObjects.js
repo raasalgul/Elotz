@@ -1,9 +1,10 @@
 import Dashboard from "../components/Dashboard/Dashboard"
 import Daily from "../components/DailyUpdate/DailyUpdate"
-import Montly from "../components/MonthlyUpdate/MonthlyUpdate"
+import Monthly from "../components/MonthlyUpdate/MonthlyUpdate"
 import Weekly from "../components/WeeklyUpdate/WeeklyUpdate"
 import Yearly from "../components/YearlyUpdate/YearlyUpate";
-// import DailyView from "../components/DailyUpdate/DailyView";
+ import DailyView from "../components/DailyUpdate/DailyView";
+import MonthlyView from "../components/MonthlyUpdate/MonthlyView";
 export let dashboardRoutes = [
     {
       path: "/dashboard",
@@ -21,16 +22,21 @@ export let dashboardRoutes = [
       },
       {
         path: "/monthly-update",
-        name: "Montly",
-        component: Montly
+        name: "Monthly",
+        component: Monthly
       },{
         path: "/yearly-update",
         name: "Yearly",
         component: Yearly
       }
-      // ,{
-      //   path: "/daily-view",
-      //   name: "Daily-View",
-      //   component: DailyView
-      // }
+      ,{
+        path: "/daily-view",
+        name: "Daily-View",
+        component: DailyView
+      }
+      ,{
+        path: "/monthly-view",
+        name: "Monthly-View",
+        component: MonthlyView
+      }
 ];

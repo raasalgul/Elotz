@@ -24,13 +24,15 @@ const drawerWidth = 240;
 const useStyles = makeStyles(theme => ({
   root: {
     display: 'flex',
+   // color:'#fff'
   },
   appBar: {
     transition: theme.transitions.create(['margin', 'width'], {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
-      // color:'#fe238a'
+     // color:'#fe238a'
     }),
+    
   },
   appBarShift: {
     width: `calc(100% - ${drawerWidth}px)`,
@@ -76,6 +78,7 @@ const useStyles = makeStyles(theme => ({
     }),
     marginLeft: 0,
   },
+  
 }));
 
 export default function PersistentDrawerLeft() {
@@ -92,15 +95,16 @@ export default function PersistentDrawerLeft() {
   };
 
   return (
-    <div className={classes.root}>
+    <div  className={classes.root}>
       <CssBaseline />
       <AppBar
         position="fixed"
+        
         className={clsx(classes.appBar, {
           [classes.appBarShift]: open,
         })}
       >
-        <Toolbar>
+        <Toolbar style={{backgroundColor:'#70A37F'}}>
           <IconButton
             color="inherit"
             aria-label="open drawer"
@@ -132,7 +136,7 @@ export default function PersistentDrawerLeft() {
         <Divider />
         {dashboardRoutes.map((text, index) => (
             <NavLink key={index} to={text.path} style={{textDecoration:'none'}}>
-        <List>
+        <List style={{color : '#70A37F'}}>
          
             <ListItem button key={text.name}>
               <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>

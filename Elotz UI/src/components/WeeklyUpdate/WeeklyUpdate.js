@@ -56,7 +56,17 @@ const useStyles = makeStyles(theme => ({
       },
       time:{
         flexBasis:'700px'
+      },
+      submitButton:{
+        backgroundColor: "#41658A",
+        color:"#ffffff",
+        float:"left",
+        margin:10,  
+        '&:hover': {
+         backgroundColor:'#414073',
+         color: '#FFF'
       }
+    }
   }));
 export default function WeeklyUpdate() {
     const [topic, setTopic] = React.useState('');
@@ -142,7 +152,7 @@ export default function WeeklyUpdate() {
         </FormControl>
       </CardContent>
       <CardActions>
-        <Button size="small" variant="contained" color="primary">Submit</Button>
+        <Button className={classes.submitButton} size="small" variant="contained" color="primary">Submit</Button>
       </CardActions>
     </Card>
     </div>
