@@ -1,8 +1,11 @@
 package com.elotz.service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -85,6 +88,7 @@ public class DailyUpdateService {
 					dailyUpdate.setTime(dailyUpdatePost.getTime());
 					dailyUpdate.setTopic(dailyUpdatePost.getTopic());
 					dailyUpdate.setActive(dailyUpdatePost.getActive());
+					LocalDate addedDate=dailyTaskInv.get().getAddedDate();
 					LocalDateTime addedLogOn=dailyTaskInv.get().getAddedLogon();
 					LocalDateTime currentDate=LocalDateTime.now();
 					if(addedLogOn.getDayOfMonth()==currentDate.getDayOfMonth() &&addedLogOn.getMonth()==currentDate.getMonth() &&addedLogOn.getYear()==currentDate.getYear())
@@ -93,7 +97,7 @@ public class DailyUpdateService {
 						dailyUpdate.setAddedLogon(addedLogOn);
 						dailyUpdateRepository.delete(dailyUpdate);
 					}
-					dailyUpdate.setAddedLogon(currentDate);
+					dailyUpdate.setAddedDate(addedDate);
 					dailyUpdateRepository.save(dailyUpdate);
 				}
 				else
@@ -103,6 +107,8 @@ public class DailyUpdateService {
 					dailyUpdate.setTime(dailyUpdatePost.getTime());
 					dailyUpdate.setTopic(dailyUpdatePost.getTopic());
 					dailyUpdate.setActive(dailyUpdatePost.getActive());
+					LocalDate localDate=LocalDate.now();
+					dailyUpdate.setAddedDate(localDate);
 					LocalDateTime date=LocalDateTime.now();
 					dailyUpdate.setAddedLogon(date);
 					dailyUpdateRepository.save(dailyUpdate);
@@ -117,6 +123,8 @@ public class DailyUpdateService {
 				dailyUpdate.setTopic(dailyUpdatePost.getTopic());
 				dailyUpdate.setActive(dailyUpdatePost.getActive());
 				LocalDateTime date=LocalDateTime.now();
+				LocalDate localDate=LocalDate.now();
+				dailyUpdate.setAddedDate(localDate);
 				dailyUpdate.setAddedLogon(date);
 				dailyUpdateRepository.save(dailyUpdate);
 			}
@@ -128,4 +136,16 @@ public class DailyUpdateService {
 			throw new GenericException("Failure",e.toString());
 		}
 	}
+	public Map<String, List<DailyUpdate>> dailyUpdateViewService() {
+		LocalDateTime date=LocalDateTime.now();
+//		return dailyUpdateRepository.findAll().stream().filter(data->data.getAddedDate().getYear()==date.getYear()).filter(data->data.getAddedDate().getDayOfYear()==date.getDayOfYear()).collect(Collectors.groupingBy(DailyUpdate::getTopic,Collectors.toList()));
+		Map<String, List<DailyUpdate>>dailyUpdate= dailyUpdateRepository.findAll().stream()
+				.filter(data->data.getActive()!=null)
+				.filter(data->data.getActive()==true)
+				.collect(Collectors.groupingBy(DailyUpdate::getTopic,Collectors.toList()));
+		Map<String, List<DailyUpdate>> noData=new HashMap<>();
+		noData.put("no Data", Arrays.asList(new DailyUpdate(null, "no Data", "no Data", "-1", false, date, date.toLocalDate())));
+		return dailyUpdate.size()>0?dailyUpdate:noData;
+	}
+
 }

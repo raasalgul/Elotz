@@ -1,6 +1,7 @@
 package com.elotz.bean;
 
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import org.bson.types.ObjectId;
@@ -14,7 +15,7 @@ public class DailyUpdate{
 	public String time;
 	public Boolean active;
 	public LocalDateTime addedLogon;
-	
+	public LocalDate addedDate;
 	/**
 	 * 
 	 */
@@ -30,8 +31,10 @@ public class DailyUpdate{
 	 * @param time
 	 * @param active
 	 * @param addedLogon
+	 * @param addedDate
 	 */
-	public DailyUpdate(ObjectId _id, String topic, String task, String time, Boolean active, LocalDateTime addedLogon) {
+	public DailyUpdate(ObjectId _id, String topic, String task, String time, Boolean active, LocalDateTime addedLogon,
+			LocalDate addedDate) {
 		super();
 		this._id = _id;
 		this.topic = topic;
@@ -39,6 +42,7 @@ public class DailyUpdate{
 		this.time = time;
 		this.active = active;
 		this.addedLogon = addedLogon;
+		this.addedDate = addedDate;
 	}
 
 	/**
@@ -124,6 +128,39 @@ public class DailyUpdate{
 	public void setAddedLogon(LocalDateTime addedLogon) {
 		this.addedLogon = addedLogon;
 	}
+	
+
+	/**
+	 * @return the addedDate
+	 */
+	public LocalDate getAddedDate() {
+		return addedDate;
+	}
+
+	/**
+	 * @param addedDate the addedDate to set
+	 */
+	public void setAddedDate(LocalDate addedDate) {
+		this.addedDate = addedDate;
+	}
+
+	/**
+	 * @return the active
+	 */
+	public Boolean getActive() {
+		return active;
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "DailyUpdate [_id=" + _id + ", topic=" + topic + ", task=" + task + ", time=" + time + ", active="
+				+ active + ", addedLogon=" + addedLogon + ", addedDate=" + addedDate + "]";
+	}
+
+	
 	
 	
 }
