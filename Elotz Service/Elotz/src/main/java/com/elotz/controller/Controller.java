@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.elotz.bean.DailyUpdate;
 import com.elotz.bean.DailyUpdateGet;
 import com.elotz.bean.DailyUpdatePost;
+import com.elotz.bean.GraphData;
 import com.elotz.bean.MonthlyUpdatePost;
 import com.elotz.exception.GenericException;
 import com.elotz.exception.TopicNotFound;
@@ -75,9 +76,9 @@ public class Controller {
 	{
 		return monthlyUpdateService.postMonthlyUpdateService(monthlyUpdatePost);
 	}
-	@GetMapping("/graph/weekday")
-	public List<Object> getWeekDayGraph()
+	@GetMapping("/graph/daily")
+	public List<GraphData> getWeekDayGraph()
 	{
-		return dailyGraphService.getWeekDayGraph();
+		return dailyGraphService.getDailyGraph();
 	}
 }

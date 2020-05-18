@@ -1,18 +1,15 @@
 package com.elotz.util;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashSet;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
-import java.util.TreeMap;
+import java.util.Random;
 import java.util.stream.Collectors;
 
 import com.elotz.bean.DailyUpdate;
 import com.elotz.bean.DailyUpdateCompartor;
+import com.elotz.bean.GraphData;
 
 public class Utility {
 
@@ -23,7 +20,22 @@ public class Utility {
 		System.out.println(dailyUpdateMap);
 		return dailyUpdateMap;
 	}
-	public static List<Object> processDailyGraph(List<DailyUpdate> data)
+	public static List<GraphData> processDailyGraph(List<DailyUpdate> data)
+	{
+//		Map<String, List<DailyUpdate>> dailyUpdateMap=data.stream().collect(Collectors.groupingBy(DailyUpdate::getTopic,Collectors.toList()));
+		Map<String, List<DailyUpdate>> dailyUpdateMap=data.stream().collect(Collectors.groupingBy(DailyUpdate::getTask,Collectors.toList()));
+		List<GraphData> graphDataList=new ArrayList<>();
+		
+		dailyUpdateMap.forEach((k,v)->{
+			GraphData graphData=new GraphData();
+			graphData.setLabel(k);
+			graphData.setData(v.stream().map(d->d.getTime()).collect(Collectors.toList()));
+			graphData.setBackgroundColor(Utility.colorGenerator());
+			graphDataList.add(graphData);
+		});
+	return graphDataList;
+	}
+/*	public static List<Object> processDailyGraph(List<DailyUpdate> data)
 	{
 		List<Map> time=new ArrayList<>();
 		Set<String> topicList=new HashSet<>();
@@ -119,5 +131,15 @@ public class Utility {
 //		});
 //		return res;
 
+	}*/
+	private static String colorGenerator() {
+		String color="#";
+	Random hexa=new Random();
+	for(int i=0;i<6;i++)
+	{
+	Integer rand=hexa.nextInt(16);
+	color+=Integer.toHexString(rand);
+	}
+		return color;
 	}
 }

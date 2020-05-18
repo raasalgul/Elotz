@@ -97,6 +97,7 @@ public class DailyUpdateService {
 						dailyUpdate.setAddedLogon(addedLogOn);
 						dailyUpdateRepository.delete(dailyUpdate);
 					}
+					dailyUpdate.setAddedLogon(currentDate);
 					dailyUpdate.setAddedDate(addedDate);
 					dailyUpdateRepository.save(dailyUpdate);
 				}
