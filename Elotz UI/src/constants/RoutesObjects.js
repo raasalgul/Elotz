@@ -5,6 +5,7 @@ import Weekly from "../components/WeeklyUpdate/WeeklyUpdate"
 import Yearly from "../components/YearlyUpdate/YearlyUpate";
  import DailyView from "../components/DailyUpdate/DailyView";
 import MonthlyView from "../components/MonthlyUpdate/MonthlyView";
+import Test from "../components/MonthlyUpdate/Test";
 export let dashboardRoutes = [
     {
       path: "/dashboard",
@@ -38,5 +39,10 @@ export let dashboardRoutes = [
         path: "/monthly-view",
         name: "Monthly-View",
         component: MonthlyView
+      },
+      {
+        path: "/test",
+        name: "Test",
+        component: Test
       }
 ];

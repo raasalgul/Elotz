@@ -9,7 +9,7 @@ const useStyles = makeStyles(theme => ({
   root: {
     display:'flex',
     flexWrap:'wrap',
-    marginTop:'50px',
+    marginTop:'13vh',
     justifyContent:'center'
   },
   // light:{
@@ -39,7 +39,7 @@ function Dashboard() {
     <Fragment>
    { check?<div style={{position:"fixed",top:"50%",right:"50%"}}><CircularProgress color="secondary"/></div>:null}
     <div className={classes.root}>
-  <Daily style={{margin:'30px'}}/>
+  <Daily style={{}}/>
   <Monthly />
     <Yearly/>
     <Monthly />

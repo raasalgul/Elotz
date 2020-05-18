@@ -1,6 +1,6 @@
 import React, { useState,useEffect } from 'react';
 import {Line} from 'react-chartjs-2'
-const Daily = () => {
+const Test = () => {
     const[chartData,setChartData]=useState({});
     const serviceURLHost="http://localhost:8089";
     // test=
@@ -38,8 +38,7 @@ const Daily = () => {
           });
         chart()
     },[])
-    return (<div style={{height:"500px",width:"500px"}}>
-        <h1>Daily Active Status</h1>
+    return (<div style={{height:"600px",width:"500px"}}>
         <div>
             <Line data={chartData} options={{
                 responsive:true
@@ -49,4 +48,4 @@ const Daily = () => {
     </div>);
 }
  
-export default Daily;
+export default Test;
