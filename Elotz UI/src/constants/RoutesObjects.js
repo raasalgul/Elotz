@@ -16,20 +16,22 @@ export let dashboardRoutes = [
         path: "/daily-update",
         name: "Daily",
         component: Daily
-      },{
-        path: "/weekly-update",
-        name: "Weekly",
-        component: Weekly
       },
+      // {
+      //   path: "/weekly-update",
+      //   name: "Weekly",
+      //   component: Weekly
+      // },
       {
         path: "/monthly-update",
         name: "Monthly",
         component: Monthly
-      },{
-        path: "/yearly-update",
-        name: "Yearly",
-        component: Yearly
-      }
+      },
+      // {
+      //   path: "/yearly-update",
+      //   name: "Yearly",
+      //   component: Yearly
+      // }
       ,{
         path: "/daily-view",
         name: "Daily-View",
