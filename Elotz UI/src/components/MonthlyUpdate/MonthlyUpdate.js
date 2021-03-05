@@ -12,7 +12,8 @@ import FormControl from '@material-ui/core/FormControl';
 import Checkbox from '@material-ui/core/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import {useState,useEffect} from "react"
+import {useState,useEffect} from "react";
+import CustomCalender from "./CustomCalender";
 // import axios from "axios";
 const serviceURLHost="http://localhost:8089";
 const useStyles = makeStyles(theme => ({
@@ -59,11 +60,11 @@ const useStyles = makeStyles(theme => ({
         flexBasis:'700px'
       },
       time:{
-        flexBasis:'700px'
+        flexBasis:'660px'
       },
       month: {
         margin: theme.spacing(1),
-        flexBasis:'150px'
+        flexBasis:'250px'
       },
       submitButton:{
         backgroundColor: "#41658A",
@@ -85,56 +86,6 @@ export default function MonthlyUpdate() {
     const [checkedTask, setCheckedTask] = React.useState(false);
     const [check,setCheck]=useState(false); 
     const [getTopic,setGetTopic]=React.useState([]);
-    const monthValue=[
-      {
-        value:'01',
-        month:'January'
-      },
-      {
-        value:'02',
-        month:'Febuary'
-      },
-      {
-        value:'03',
-        month:'March'
-      },
-      {
-        value:'04',
-        month:'April'
-      },
-      {
-        value:'05',
-        month:'May'
-      },
-      {
-        value:'06',
-        month:'June'
-      },
-      {
-        value:'07',
-        month:'July'
-      },
-      {
-        value:'08',
-        month:'August'
-      },
-      {
-        value:'09',
-        month:'September'
-      },
-      {
-        value:'10',
-        month:'October'
-      },
-      {
-        value:'11',
-        month:'November'
-      },
-      {
-        value:'12',
-        month:'December'
-      }
-    ]
     const [getTask,setGetTask]=React.useState({ "topic": "",
     "tasks": [
        
@@ -282,22 +233,7 @@ export default function MonthlyUpdate() {
       />
       <TextField className={classes.time} value={time} id="standard-basic" label="Time in hours" onChange={(event)=>{setTime(event.target.value)}}/>
       <FormControl className={classes.month}>
-      <InputLabel id="topic-select-label">Month</InputLabel>
-        <Select
-          labelId="topic-select-label"
-          id="topic-select"
-          value={month}
-          onChange={(event)=>{setMonth(event.target.value)}}
-        >
-          {/* <MenuItem value={'01'}>January</MenuItem>
-          <MenuItem value={'Febuary'}>Febuary</MenuItem>
-          <MenuItem value={'March'}>March</MenuItem> */}
-          {
-            monthValue.map(inv=>{
-           return <MenuItem value={inv.value}>{inv.month}</MenuItem>
-            })
-          }
-        </Select>
+        <CustomCalender/>
         </FormControl>
       </CardContent>
       <CardActions>
