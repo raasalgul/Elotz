@@ -15,12 +15,19 @@ const Test = () => {
     return (
         
         <div style={{margin:'50vh'}}>
-        {console.log(date)}
+        {}
         <Button variant="contained" color="primary" onClick={()=>{setCalenderClick(!calenderClick)}}>Show Calender</Button>        
         {calenderClick?
           <Calendar
-            onChange={(date)=>{setDate(date)}}
-            onClickDay={()=>{setCalenderClick(false)}}
+            onChange={(date)=>{
+              // console.log(date);
+              // setDate(date)
+            }}
+            onClickDay={(d)=>{
+              console.log(d);
+              setDate(d);
+              setCalenderClick(false)
+            }}
             value={date}
           />:""
         }
