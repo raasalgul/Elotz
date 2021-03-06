@@ -1,11 +1,12 @@
 import Dashboard from "../components/Dashboard/Dashboard"
 import Daily from "../components/DailyUpdate/DailyUpdate"
 import Monthly from "../components/MonthlyUpdate/MonthlyUpdate"
-import Weekly from "../components/WeeklyUpdate/WeeklyUpdate"
-import Yearly from "../components/YearlyUpdate/YearlyUpate";
+// import Weekly from "../components/WeeklyUpdate/WeeklyUpdate"
+// import Yearly from "../components/YearlyUpdate/YearlyUpate";
  import DailyView from "../components/DailyUpdate/DailyView";
 import MonthlyView from "../components/MonthlyUpdate/MonthlyView";
-import CustomCalender from "../components/MonthlyUpdate/CustomCalender";
+import AllView from "../components/AllView/AllView"
+// import CustomCalender from "../components/MonthlyUpdate/CustomCalender";
 export let dashboardRoutes = [
     {
       path: "/dashboard",
@@ -14,7 +15,7 @@ export let dashboardRoutes = [
     },
     {
         path: "/daily-update",
-        name: "Daily",
+        name: "Daily-Update",
         component: Daily
       },
       // {
@@ -24,7 +25,7 @@ export let dashboardRoutes = [
       // },
       {
         path: "/monthly-update",
-        name: "Monthly",
+        name: "All-Update",
         component: Monthly
       },
       // {
@@ -32,15 +33,20 @@ export let dashboardRoutes = [
       //   name: "Yearly",
       //   component: Yearly
       // }
-      ,{
+      {
         path: "/daily-view",
-        name: "Daily-View",
+        name: "Current Day-View",
         component: DailyView
       }
       ,{
         path: "/monthly-view",
-        name: "Monthly-View",
+        name: "Current Month-View",
         component: MonthlyView
+      },
+      {
+        path: "/all-view",
+        name: "All-View",
+        component: AllView
       },
       // {
       //   path: "/test",

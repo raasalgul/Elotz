@@ -79,9 +79,11 @@ const useStyles = makeStyles(theme => ({
   }));
 export default function MonthlyUpdate() {
     const [topic, setTopic] = React.useState('');
+    const [date,setDate] = React.useState('');
+    const [initialDate,setInitialDate] = React.useState('Select a Date');
+    const [isPostRerender,setIsPostRerender]=React.useState(false);
     const [task, setTask] = React.useState('');
     const [time,setTime]=React.useState('');
-    const [month,setMonth]=React.useState('');
     const [checkedTopic, setCheckedTopic] = React.useState(false);
     const [checkedTask, setCheckedTask] = React.useState(false);
     const [check,setCheck]=useState(false); 
@@ -95,6 +97,9 @@ export default function MonthlyUpdate() {
     ],
     "active":[
 
+    ],
+    "date":[
+      
     ]
   });
     useEffect(()=>{
@@ -113,9 +118,8 @@ export default function MonthlyUpdate() {
       .then((myJson) => {
         console.log(myJson);
         setGetTask(myJson);
-       
       });
-    },[topic,checkedTopic]);
+    },[topic,checkedTopic,isPostRerender]);
   const classes = useStyles();
   
   async function handleSubmit(){
@@ -123,7 +127,7 @@ export default function MonthlyUpdate() {
     data.topic=topic;
     data.task=task;
     data.time=time;
-    data.month=month;
+    data.date=date;
     console.log(data);
     const response = await fetch(`${serviceURLHost}/Elotz-home/monthlyUpdate/post`, {
       method: 'POST', // *GET, POST, PUT, DELETE, etc.
@@ -137,9 +141,15 @@ export default function MonthlyUpdate() {
       redirect: 'follow', // manual, *follow, error
       referrerPolicy: 'no-referrer', // no-referrer, *client
       body: JSON.stringify(data) // body data type must match "Content-Type" header
+    }).then(()=>{
+      setIsPostRerender(!isPostRerender);
     });
-    return await response.json(); // parses JSON response into native JavaScript objects
-  
+    return await response; // parses JSON response into native JavaScript objects
+  }
+  function getDate(date)
+  {
+    setDate(date);
+    setInitialDate(date);
   }
   return (
       <div className={classes.root}>
@@ -199,11 +209,12 @@ export default function MonthlyUpdate() {
             new Promise(resolve => {
               setTimeout(() => {
                 resolve();
-               
               setCheck(false);
               const localTask=getTask.tasks.indexOf(event.target.value);
-                console.log(getTask.tasks[localTask] +` `+getTask.active[localTask]);
+                console.log(getTask.tasks[localTask] +` `+getTask.date[localTask]);
              //   setCheckedActive(getTask.active[localTask]);
+                setDate(getTask.date[localTask]);
+                setInitialDate(getTask.date[localTask]);
                 setTime(getTask.time[localTask]);
               }, 1000);
             })
@@ -233,7 +244,7 @@ export default function MonthlyUpdate() {
       />
       <TextField className={classes.time} value={time} id="standard-basic" label="Time in hours" onChange={(event)=>{setTime(event.target.value)}}/>
       <FormControl className={classes.month}>
-        <CustomCalender/>
+        <CustomCalender selectedDate={getDate} intialDate={initialDate}/>
         </FormControl>
       </CardContent>
       <CardActions>

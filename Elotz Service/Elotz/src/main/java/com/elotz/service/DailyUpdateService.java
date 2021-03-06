@@ -49,18 +49,18 @@ public class DailyUpdateService {
 			List<String> taskList=new ArrayList<>();
 			List<String> timeList=new ArrayList<>();
 			List<Boolean> activeList=new ArrayList<>();
-			List<LocalDateTime> addedLogonList=new ArrayList<>();
+			List<LocalDate> dateList=new ArrayList<>();
 			for(DailyUpdate dailyUpdate:matchedDailyUpdate)
 			{
 				taskList.add(dailyUpdate.getTask());
 				timeList.add(dailyUpdate.getTime());
 				activeList.add(dailyUpdate.isActive());
-				addedLogonList.add(dailyUpdate.getAddedLogon());
+				dateList.add(dailyUpdate.getAddedDate());
 			}
 			dailyUpdateGet.setTasks(taskList);
 			dailyUpdateGet.setTime(timeList);
 			dailyUpdateGet.setActive(activeList);
-			dailyUpdateGet.setAddedLogon(addedLogonList);
+			dailyUpdateGet.setDate(dateList);
 			return dailyUpdateGet;
 		}
 		throw new TopicNotFound("Failure","Given Topic is not found");

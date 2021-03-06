@@ -2,10 +2,12 @@ package com.elotz.service;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -45,6 +47,12 @@ public class MonthlyUpdateService {
 			 * */
 
 			Map<String, List<DailyUpdate>> topicMap = Utility.createDailyTaskList(dailyUpdateRepository.findAll());
+			String monthlyUpdateDate=monthlyUpdatePost.getDate();
+			DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+			LocalDate currentDate=LocalDate.parse(monthlyUpdateDate,format);
+			//This currentDateTime is not used in code, having these couple of lines to know how to create datetime from date.
+			LocalDateTime currentDateTime=currentDate.atStartOfDay();
+			System.out.println(currentDateTime);
 			if(topicMap.containsKey(monthlyUpdatePost.getTopic()))
 			{
 				System.out.println("Inside existing topic");
@@ -59,16 +67,18 @@ public class MonthlyUpdateService {
 					dailyUpdate.setTopic(monthlyUpdatePost.getTopic());
 //					dailyUpdate.setActive(monthlyUpdatePost.getActive());
 					dailyUpdate.setAddedLogon(LocalDateTime.now());
-					LocalDate addedDate=dailyTaskInv.get().getAddedDate();
-					LocalDate currentDate=LocalDate.now();
-					currentDate=LocalDate.parse(currentDate.toString().replaceAll("-..-", String.format("-%s-",monthlyUpdatePost.getMonth())));
-					if(addedDate.getYear()==currentDate.getYear())
-					{
+//					LocalDate addedDate=dailyTaskInv.get().getAddedDate();
+//					LocalDate currentDate=LocalDate.now();
+//					currentDate=LocalDate.parse(currentDate.toString().replaceAll("-..-", String.format("-%s-",monthlyUpdatePost.getMonth())));
+//					if(addedDate.getYear()==currentDate.getYear())
+//					{
 						dailyUpdate.set_id(dailyTaskInv.get().get_id());
-						dailyUpdate.setAddedDate(addedDate);
+						dailyUpdate.setAddedDate(currentDate);
+//						dailyUpdateRepository.save(dailyUpdate);
 						dailyUpdateRepository.delete(dailyUpdate);
-					}
-					dailyUpdate.setAddedDate(currentDate);
+//					}
+//					dailyUpdate.setAddedDate(currentDate);
+						System.out.println(dailyUpdate);
 					dailyUpdateRepository.save(dailyUpdate);
 				}
 				else
@@ -78,9 +88,9 @@ public class MonthlyUpdateService {
 					dailyUpdate.setTime(monthlyUpdatePost.getTime());
 					dailyUpdate.setTopic(monthlyUpdatePost.getTopic());
 					//dailyUpdate.setActive(monthlyUpdatePost.getActive());
-					LocalDate localDate=LocalDate.now();
-					localDate=LocalDate.parse(localDate.toString().replaceAll("-..-", String.format("-%s-",monthlyUpdatePost.getMonth())));
-					dailyUpdate.setAddedDate(localDate);
+//					LocalDate localDate=LocalDate.now();
+//					localDate=LocalDate.parse(localDate.toString().replaceAll("-..-", String.format("-%s-",monthlyUpdatePost.getMonth())));
+					dailyUpdate.setAddedDate(currentDate);
 					LocalDateTime date=LocalDateTime.now();
 					dailyUpdate.setAddedLogon(date);
 					dailyUpdateRepository.save(dailyUpdate);
@@ -95,9 +105,9 @@ public class MonthlyUpdateService {
 				dailyUpdate.setTopic(monthlyUpdatePost.getTopic());
 				//dailyUpdate.setActive(monthlyUpdatePost.getActive());
 				LocalDateTime date=LocalDateTime.now();
-				LocalDate localDate=LocalDate.now();
-				localDate=LocalDate.parse(localDate.toString().replaceAll("-..-", String.format("-%s-",monthlyUpdatePost.getMonth())));
-				dailyUpdate.setAddedDate(localDate);
+//				LocalDate localDate=LocalDate.now();
+//				localDate=LocalDate.parse(localDate.toString().replaceAll("-..-", String.format("-%s-",monthlyUpdatePost.getMonth())));
+				dailyUpdate.setAddedDate(currentDate);
 				dailyUpdate.setAddedLogon(date);
 				dailyUpdateRepository.save(dailyUpdate);
 			}
@@ -109,11 +119,15 @@ public class MonthlyUpdateService {
 			throw new GenericException("Failure",e.toString());
 		}
 	}
-//	public static void main(String args[])
-//	{
-//		LocalDateTime currentDate=LocalDateTime.now();
-//		System.out.println(currentDate);
-//		currentDate=LocalDateTime.parse(currentDate.toString().replaceAll("-..-", "-12-"));
-//		System.out.println(currentDate);
-//	}
+	public static void main(String args[])
+	{
+		String date="Thu Mar 18 2021 00:00:00 GMT+0530 (India Standard Time)";
+		date=date.substring(0,date.indexOf(" 00:"));
+		DateTimeFormatter format = DateTimeFormatter.ofPattern("EEE MMM dd yyyy", Locale.ENGLISH);
+		LocalDate currentDate=LocalDate.parse(date,format);
+		System.out.println(currentDate);
+		LocalDateTime dateTime=currentDate.atStartOfDay();
+//		dateTime.parse(currentDate.toString());
+		System.out.println(dateTime);
+	}
 }

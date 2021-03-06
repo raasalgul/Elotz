@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import Calendar from 'react-calendar';
 import { Button } from '@material-ui/core';
 import { Typography } from '@material-ui/core';
-const CustomCalender = () => {
+const CustomCalender = (props) => {
     const[date,setDate]=useState(new Date());
-    const[calenderClick,setCalenderClick]=useState(true);
+    const[calenderClick,setCalenderClick]=useState(false);
     // const serviceURLHost="http://localhost:8089";
     // useEffect(()=>{
     //     fetch(`${serviceURLHost}/Elotz-home/graph/daily`).then((response) => {
@@ -26,18 +26,20 @@ const CustomCalender = () => {
             //   // setDate(date)
             // }}
             onClickDay={(d)=>{
-              // console.log(d);
               setDate(d);
-              setCalenderClick(false)
+              let localDate=`${d.getFullYear()}-${d.getMonth()+1<10?`0${d.getMonth()+1}`:d.getMonth()+1}-${d.getDate()<10?
+                `0${d.getDate()}`:d.getDate()}`;
+              console.log();
+              setCalenderClick(false);
+              props.selectedDate(localDate);
             }}
             value={date}
           />:""
         }
         <br/>
         <Typography variant="subtitle1" component="h2">
-        {""+date}
+        {props.intialDate}
         </Typography>
-
         </div>
       );
 }

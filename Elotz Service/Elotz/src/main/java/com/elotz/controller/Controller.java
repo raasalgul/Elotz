@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.elotz.bean.AllData;
 import com.elotz.bean.DailyUpdate;
 import com.elotz.bean.DailyUpdateGet;
 import com.elotz.bean.DailyUpdatePost;
@@ -20,6 +21,7 @@ import com.elotz.bean.GraphData;
 import com.elotz.bean.MonthlyUpdatePost;
 import com.elotz.exception.GenericException;
 import com.elotz.exception.TopicNotFound;
+import com.elotz.service.AllDataService;
 import com.elotz.service.DailyGraphService;
 import com.elotz.service.DailyUpdateService;
 import com.elotz.service.MonthlyUpdateService;
@@ -34,6 +36,8 @@ public class Controller {
 	MonthlyUpdateService monthlyUpdateService;
 	@Autowired
 	DailyGraphService dailyGraphService;
+	@Autowired
+	AllDataService allDataService;
 	DailyUpdateGet dailyTask=new DailyUpdateGet();
 	List<DailyUpdate> dailyTaskList=new ArrayList<>();
 	@RequestMapping("/dailyUpdate/topic")
@@ -75,6 +79,11 @@ public class Controller {
 	public String postMonthlyUpdate(@RequestBody MonthlyUpdatePost monthlyUpdatePost) throws GenericException
 	{
 		return monthlyUpdateService.postMonthlyUpdateService(monthlyUpdatePost);
+	}
+	@GetMapping("/allData/view")
+	public Map<String, Map<String, List<AllData>>> allDataView() throws TopicNotFound
+	{
+		return allDataService.allDataView();
 	}
 	@GetMapping("/graph/daily")
 	public List<GraphData> getWeekDayGraph()

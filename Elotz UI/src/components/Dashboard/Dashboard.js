@@ -39,7 +39,7 @@ function Dashboard() {
     <Fragment>
    { check?<div style={{position:"fixed",top:"50%",right:"50%"}}><CircularProgress color="secondary"/></div>:null}
     <div className={classes.root}>
-  <Daily style={{}}/>
+  <Daily/>
   <Monthly />
     <Yearly/>
     <Monthly />

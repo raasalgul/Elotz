@@ -37,7 +37,7 @@ const Daily = () => {
            setChartData(data);
           });
         chart()
-    },[])
+    },[chartData])
     return (<div style={{height:"500px",width:"500px"}}>
         <h1>Daily Active Status</h1>
         <div>

@@ -4,7 +4,7 @@ public class MonthlyUpdatePost {
 	public String topic;
 	public String task;
 	public String time;
-	public String month;
+	public String date;
 	
 	/**
 	 * 
@@ -18,14 +18,14 @@ public class MonthlyUpdatePost {
 	 * @param topic
 	 * @param task
 	 * @param time
-	 * @param month
+	 * @param date
 	 */
-	public MonthlyUpdatePost(String topic, String task, String time, String month) {
+	public MonthlyUpdatePost(String topic, String task, String time, String date) {
 		super();
 		this.topic = topic;
 		this.task = task;
 		this.time = time;
-		this.month = month;
+		this.date = date;
 	}
 
 	/**
@@ -67,14 +67,14 @@ public class MonthlyUpdatePost {
 	/**
 	 * @return the month
 	 */
-	public String getMonth() {
-		return month;
+	public String getDate() {
+		return date;
 	}
 	/**
 	 * @param month the month to set
 	 */
-	public void setMonth(String month) {
-		this.month = month;
+	public void setDate(String date) {
+		this.date = date;
 	}
 
 	/* (non-Javadoc)
@@ -82,7 +82,7 @@ public class MonthlyUpdatePost {
 	 */
 	@Override
 	public String toString() {
-		return "MonthlyUpdatePost [topic=" + topic + ", task=" + task + ", time=" + time + ", month=" + month + "]";
+		return "MonthlyUpdatePost [topic=" + topic + ", task=" + task + ", time=" + time + ", date=" + date + "]";
 	}
 	
 }
