@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -31,7 +32,7 @@ public class MonthlyUpdateService {
 		Map<String, List<DailyUpdate>> monthlyUpdate=dailyUpdateRepository.findAll().stream().
 		filter(data->data.getAddedDate()!=null).
 		filter(data->data.getAddedDate().getYear()==date.getYear()).
-		filter(data->data.getAddedDate().getMonthValue()==date.getMonthValue()).
+		filter(data->data.getAddedDate().getMonthValue()==date.getMonthValue()).sorted(Comparator.comparing(DailyUpdate::getAddedDate)).
 		collect(Collectors.groupingBy(DailyUpdate::getTopic,Collectors.toList()));
 		Map<String, List<DailyUpdate>> noData=new HashMap<>();
 		noData.put("no Data", Arrays.asList(new DailyUpdate(null, "no Data", "no Data", "-1", false, date, date.toLocalDate())));

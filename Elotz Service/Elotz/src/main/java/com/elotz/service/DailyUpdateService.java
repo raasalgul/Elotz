@@ -5,12 +5,14 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.TreeSet;
 import java.util.stream.Collectors;
-
+import static java.util.Comparator.comparing;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -143,6 +145,10 @@ public class DailyUpdateService {
 		Map<String, List<DailyUpdate>>dailyUpdate= dailyUpdateRepository.findAll().stream()
 				.filter(data->data.getActive()!=null)
 				.filter(data->data.getActive()==true)
+				.sorted(Comparator.comparing(DailyUpdate::getAddedLogon).reversed())
+				.sorted(Comparator.comparing(DailyUpdate::getAddedDate).reversed())
+				.collect(Collectors.collectingAndThen(Collectors.toCollection(() -> new TreeSet<>(comparing(DailyUpdate::getTask))),
+                                                           ArrayList::new)).stream()
 				.collect(Collectors.groupingBy(DailyUpdate::getTopic,Collectors.toList()));
 		Map<String, List<DailyUpdate>> noData=new HashMap<>();
 		noData.put("no Data", Arrays.asList(new DailyUpdate(null, "no Data", "no Data", "-1", false, date, date.toLocalDate())));
