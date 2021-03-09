@@ -6,8 +6,8 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.elotz.bean.DailyUpdate;
 import com.elotz.bean.GraphData;
+import com.elotz.dto.DailyUpdate;
 import com.elotz.repository.DailyUpdateRepository;
 import com.elotz.util.Utility;
 
@@ -22,9 +22,9 @@ public class DailyGraphService {
 	
 	public List<GraphData> getDailyGraph() {
 		List<DailyUpdate> data = dailyUpdateRepository.findAll().stream().
-				filter(d->d.getAddedLogon()!=null).
+//				filter(d->d.getAddedLogon()!=null).
 				filter(d->d.getActive()!=null).
-				sorted((d1,d2)->d1.getAddedLogon().compareTo(d2.getAddedLogon())).
+//				sorted((d1,d2)->d1.getAddedLogon().compareTo(d2.getAddedLogon())).
 				filter(d->d.getActive()==true).collect(Collectors.toList());
 		return Utility.processDailyGraph(data);
 	}

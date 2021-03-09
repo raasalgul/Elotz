@@ -14,11 +14,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.elotz.bean.AllData;
-import com.elotz.bean.DailyUpdate;
 import com.elotz.bean.DailyUpdateGet;
 import com.elotz.bean.DailyUpdatePost;
 import com.elotz.bean.GraphData;
 import com.elotz.bean.MonthlyUpdatePost;
+import com.elotz.dto.DailyUpdate;
+import com.elotz.dto.LatestStats;
 import com.elotz.exception.GenericException;
 import com.elotz.exception.TopicNotFound;
 import com.elotz.service.AllDataService;
@@ -61,12 +62,12 @@ public class Controller {
 //		return monthlyUpdateService.getDailyUpdateTasksService(topic);
 //	}
 	@GetMapping("/dailyUpdate/view")
-	public Map<String, List<DailyUpdate>> dailyUpdateView() throws TopicNotFound
+	public Map<String, List<LatestStats>> dailyUpdateView() throws TopicNotFound
 	{
 		return dailyUpdateService.dailyUpdateViewService();
 	}
 	@GetMapping("/monthlyUpdate/view")
-	public Map<String, List<DailyUpdate>> monthlyUpdateView() throws TopicNotFound
+	public Map<String, List<LatestStats>> monthlyUpdateView() throws TopicNotFound
 	{
 		return monthlyUpdateService.monthlyUpdateViewService();
 	}

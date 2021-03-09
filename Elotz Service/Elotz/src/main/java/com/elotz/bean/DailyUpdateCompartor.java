@@ -2,10 +2,13 @@ package com.elotz.bean;
 
 import java.util.Comparator;
 
-public class DailyUpdateCompartor implements Comparator<DailyUpdate>{
+import com.elotz.dto.LatestStats;
+import com.elotz.dto.Records;
+
+public class DailyUpdateCompartor implements Comparator<Records>{
 
 	@Override
-	public int compare(DailyUpdate o1, DailyUpdate o2) {
+	public int compare(Records o1, Records o2) {
 		return o2.getAddedLogon().compareTo(o1.getAddedLogon());
 	}
 

@@ -69,25 +69,10 @@ export default function AllView() {
   const classes = useStyles();
 
 const [yearKeys,setYearKeys]=useState([]);
-const [yearKey,setYearKey]=useState('2019');
+const [yearKey,setYearKey]=useState('');
 const [monthKeys,setMonthKeys]=useState([]);
-const [monthKey,setMonthKey]=useState('JANUARY');
-const [data,setData]=useState({
-  "2019": {
-    "JANUARY": [
-        {
-            "topic": "MIT 6006",
-            "task": "Counting Sort, Radix Sort (7)",
-            "time": "1",
-            "active": null,
-            "year": "2019",
-            "month": "JANUARY",
-            "addedLogon": "2021-03-06T23:05:23.965",
-            "addedDate": "2019-01-01"
-        }
-    ]
-}
-});
+const [monthKey,setMonthKey]=useState('');
+const [data,setData]=useState({});
 useEffect(()=>{
   fetch(`${serviceURLHost}/Elotz-home/allData/view`).then((response) => {
     return response.json();
@@ -146,7 +131,7 @@ return (
             <CardContent className={classes.root_cardContent}>
                 <Grid container spacing={2}>
                 {
-                data[yearKey][monthKey].map((value,index)=>{
+                  Object.keys(data).length !== 0?data[yearKey][monthKey].map((value,index)=>{
                     return(
                      <Grid key={index} item xs={3}>
                      <Card className={classes.card_root}>
@@ -166,7 +151,10 @@ return (
                      </CardContent>
                    </Card>
                      </Grid>);
-                })}
+                }
+                )
+               :null
+                }
             </Grid>
             </CardContent>
             <CardActions>

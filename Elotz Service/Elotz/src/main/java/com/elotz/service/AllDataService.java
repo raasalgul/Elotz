@@ -15,15 +15,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.elotz.bean.AllData;
-import com.elotz.bean.DailyUpdate;
 import com.elotz.repository.DailyUpdateRepository;
+import com.elotz.repository.LatestStatsRepository;
 @Service
 public class AllDataService {
 	@Autowired
-	DailyUpdateRepository dailyUpdateRepository;
+	LatestStatsRepository latestStatsRepository;
 	public Map<String, Map<String, List<AllData>>> allDataView() {
 		List<AllData>updatedData=new ArrayList<>();
-				dailyUpdateRepository.findAll().forEach(data->{
+		latestStatsRepository.findAll().forEach(data->{
 					AllData allData=new AllData(data._id,data.topic,data.task,data.time,
 							data.active,data.addedDate.getYear()+"",data.addedDate.getMonth()+"",data.addedLogon,data.addedDate);	
 					updatedData.add(allData);

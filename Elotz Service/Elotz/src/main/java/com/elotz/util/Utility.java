@@ -7,32 +7,43 @@ import java.util.Map;
 import java.util.Random;
 import java.util.stream.Collectors;
 
-import com.elotz.bean.DailyUpdate;
 import com.elotz.bean.DailyUpdateCompartor;
 import com.elotz.bean.GraphData;
+import com.elotz.dto.DailyUpdate;
+import com.elotz.dto.Records;
 
 public class Utility {
 
 	public static Map<String, List<DailyUpdate>> createDailyTaskList(List<DailyUpdate> list)
 	{
-		Collections.sort(list,new DailyUpdateCompartor());
-		Map<String, List<DailyUpdate>> dailyUpdateMap=list.stream().collect(Collectors.groupingBy(DailyUpdate::getTopic,Collectors.toList()));
+//		Collections.sort(list,new DailyUpdateCompartor());
+		Map<String, List<DailyUpdate>> dailyUpdateMap=list.stream().
+				collect(Collectors.groupingBy(DailyUpdate::getTopic,Collectors.toList()));
 		System.out.println(dailyUpdateMap);
 		return dailyUpdateMap;
 	}
 	public static List<GraphData> processDailyGraph(List<DailyUpdate> data)
 	{
 //		Map<String, List<DailyUpdate>> dailyUpdateMap=data.stream().collect(Collectors.groupingBy(DailyUpdate::getTopic,Collectors.toList()));
-		Map<String, List<DailyUpdate>> dailyUpdateMap=data.stream().collect(Collectors.groupingBy(DailyUpdate::getTask,Collectors.toList()));
+//		Map<String, List<DailyUpdate>> dailyUpdateMap=data.stream().collect(Collectors.groupingBy(DailyUpdate::getTask,Collectors.toList()));
 		List<GraphData> graphDataList=new ArrayList<>();
 		
-		dailyUpdateMap.forEach((k,v)->{
+/*		dailyUpdateMap.forEach((k,v)->{
 			GraphData graphData=new GraphData();
 			graphData.setLabel(k);
-			graphData.setData(v.stream().map(d->d.getTime()).collect(Collectors.toList()));
+			graphData.setData(v.stream().map(d->d.getRecords()).map(d->d.ge).collect(Collectors.toList()));
 			graphData.setBackgroundColor(Utility.colorGenerator());
 			graphDataList.add(graphData);
-		});
+		});*/
+		for(DailyUpdate daily:data)
+		{
+			GraphData graphData=new GraphData();
+			graphData.setLabel(daily.getTask());
+			graphData.setData(daily.getRecords().stream().sorted((d1,d2)->d1.getAddedLogon().compareTo(d2.getAddedLogon()))
+					.map(d->d.getTime()).collect(Collectors.toList()));
+			graphData.setBackgroundColor(Utility.colorGenerator());
+			graphDataList.add(graphData);
+		}
 	return graphDataList;
 	}
 /*	public static List<Object> processDailyGraph(List<DailyUpdate> data)

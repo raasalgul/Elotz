@@ -1,8 +1,9 @@
-package com.elotz.bean;
+package com.elotz.dto;
 
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 
 import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -12,10 +13,8 @@ public class DailyUpdate{
 	public ObjectId _id;
 	public String topic;
 	public String task;
-	public String time;
 	public Boolean active;
-	public LocalDateTime addedLogon;
-	public LocalDate addedDate;
+	public ArrayList<Records> records;
 	/**
 	 * 
 	 */
@@ -28,22 +27,18 @@ public class DailyUpdate{
 	 * @param _id
 	 * @param topic
 	 * @param task
-	 * @param time
 	 * @param active
-	 * @param addedLogon
-	 * @param addedDate
+	 * @param records
 	 */
-	public DailyUpdate(ObjectId _id, String topic, String task, String time, Boolean active, LocalDateTime addedLogon,
-			LocalDate addedDate) {
+	public DailyUpdate(ObjectId _id, String topic, String task, Boolean active, ArrayList<Records> records) {
 		super();
 		this._id = _id;
 		this.topic = topic;
 		this.task = task;
-		this.time = time;
 		this.active = active;
-		this.addedLogon = addedLogon;
-		this.addedDate = addedDate;
+		this.records = records;
 	}
+
 
 	/**
 	 * @return the _id
@@ -88,23 +83,9 @@ public class DailyUpdate{
 	}
 
 	/**
-	 * @return the time
-	 */
-	public String getTime() {
-		return time;
-	}
-
-	/**
-	 * @param time the time to set
-	 */
-	public void setTime(String time) {
-		this.time = time;
-	}
-
-	/**
 	 * @return the active
 	 */
-	public Boolean isActive() {
+	public Boolean getActive() {
 		return active;
 	}
 
@@ -116,39 +97,17 @@ public class DailyUpdate{
 	}
 
 	/**
-	 * @return the addedLogon
+	 * @return the records
 	 */
-	public LocalDateTime getAddedLogon() {
-		return addedLogon;
+	public ArrayList<Records> getRecords() {
+		return records;
 	}
 
 	/**
-	 * @param addedLogon the addedLogon to set
+	 * @param records the records to set
 	 */
-	public void setAddedLogon(LocalDateTime addedLogon) {
-		this.addedLogon = addedLogon;
-	}
-	
-
-	/**
-	 * @return the addedDate
-	 */
-	public LocalDate getAddedDate() {
-		return addedDate;
-	}
-
-	/**
-	 * @param addedDate the addedDate to set
-	 */
-	public void setAddedDate(LocalDate addedDate) {
-		this.addedDate = addedDate;
-	}
-
-	/**
-	 * @return the active
-	 */
-	public Boolean getActive() {
-		return active;
+	public void setRecords(ArrayList<Records> records) {
+		this.records = records;
 	}
 
 	/* (non-Javadoc)
@@ -156,11 +115,7 @@ public class DailyUpdate{
 	 */
 	@Override
 	public String toString() {
-		return "DailyUpdate [_id=" + _id + ", topic=" + topic + ", task=" + task + ", time=" + time + ", active="
-				+ active + ", addedLogon=" + addedLogon + ", addedDate=" + addedDate + "]";
+		return "DailyUpdate [_id=" + _id + ", topic=" + topic + ", task=" + task + ", active=" + active + ", records="
+				+ records + "]";
 	}
-
-	
-	
-	
-}
+	}

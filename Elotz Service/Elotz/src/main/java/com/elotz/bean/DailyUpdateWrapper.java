@@ -2,6 +2,8 @@ package com.elotz.bean;
 
 import java.util.Objects;
 
+import com.elotz.dto.DailyUpdate;
+
 public class DailyUpdateWrapper {
 	    private DailyUpdate dailyUpdate;
 
