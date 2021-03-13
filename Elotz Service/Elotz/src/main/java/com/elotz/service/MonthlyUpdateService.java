@@ -8,7 +8,6 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -95,14 +94,16 @@ public class MonthlyUpdateService {
 						latestStats.setActive(dailyTaskInv.get().getActive());
 						dailyUpdate.setActive(dailyTaskInv.get().getActive());
 						dailyUpdate.set_id(dailyTaskInv.get().get_id());
-						record.setAddedDate(currentDate);
+// While updating no need to add added date because added must be the date that this task has been created. We can
+// get updated date from addedLog
+						record.setAddedDate(dailyTaskLatestStats.get().getAddedDate());
 						records.add(record);
 						dailyUpdate.setRecords(records);
 //						dailyUpdateRepository.save(dailyUpdate);
 //						dailyUpdateRepository.delete(dailyUpdate);
 //					}
-//					dailyUpdate.setAddedDate(currentDate);
 						System.out.println(dailyUpdate);
+						latestStats.setAddedDate(dailyTaskLatestStats.get().getAddedDate());
 						latestStats.set_id(dailyTaskLatestStats.get().get_id());
 						latestStatsRepository.save(latestStats);
 					dailyUpdateRepository.save(dailyUpdate);
