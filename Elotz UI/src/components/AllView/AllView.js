@@ -73,6 +73,7 @@ const [yearKey,setYearKey]=useState('');
 const [monthKeys,setMonthKeys]=useState([]);
 const [monthKey,setMonthKey]=useState('');
 const [data,setData]=useState({});
+const [load,setLoad]=useState(false);
 useEffect(()=>{
   fetch(`${serviceURLHost}/Elotz-home/allData/view`).then((response) => {
     return response.json();
@@ -85,6 +86,7 @@ useEffect(()=>{
     let monthKeys=Object.keys(myJson[keys[0]]);
     setMonthKeys(monthKeys);
     setMonthKey(monthKeys[0]);
+    setLoad(true);
     });
   },[]);
   function handleNext() {
@@ -100,9 +102,10 @@ useEffect(()=>{
     setMonthKey(name.toUpperCase());
     }
 return (
-      <div className={classes.root}>
+  <div>
+  {load?<div className={classes.root}>
         <div className={classes.year}>
-          <InputLabel id="topic-select-label">Year</InputLabel>
+        <InputLabel id="topic-select-label">Year</InputLabel>
         <Select
           labelId="topic-select-label"
           id="topic-select"
@@ -123,7 +126,8 @@ return (
                     )}
         </Select>
         </div>
-        {console.log(monthKey)}
+        {console.log(`both ${+Object.keys(data).length !== 0 && data.constructor !== Object}`)}
+        {console.log(`single ${+Object.keys(data).length}`)}
            <Typography variant="h5" component="h2" className={classes.topic_style}>
                        {monthKey}
                        </Typography>
@@ -168,6 +172,7 @@ return (
            </Grid>
             </CardActions>
           </Card>
+   </div>:null}
    </div>
   );
   

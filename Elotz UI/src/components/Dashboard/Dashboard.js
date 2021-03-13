@@ -40,9 +40,9 @@ function Dashboard() {
    { check?<div style={{position:"fixed",top:"50%",right:"50%"}}><CircularProgress color="secondary"/></div>:null}
     <div className={classes.root}>
   <Daily/>
-  <Monthly />
+  {/* <Monthly />
     <Yearly/>
-    <Monthly />
+    <Monthly /> */}
     </div>
     </Fragment>
    );
